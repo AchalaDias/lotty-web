@@ -15,7 +15,7 @@ const config = {
   signOutRedirectURL: window.config.signOutRedirectURL,
   scope: window.config.scope
 };
-console.log(config);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider config={config}>
