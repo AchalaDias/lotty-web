@@ -14,9 +14,9 @@ import { useAuthContext } from "@asgardeo/auth-react";
 
 const getClientCredentials = oauth.clientCredentials(
     axios.create(),
-    window.config.tokenUrl,
-    window.config.slotMachineConsumerKey,
-    window.config.slotMachineConsumerSecret
+    window.configs.tokenUrl,
+    window.configs.slotMachineConsumerKey,
+    window.configs.slotMachineConsumerSecret
 );
 
 const SlotMachine = () => {
@@ -37,23 +37,23 @@ const SlotMachine = () => {
     });
 
     const getData = async () => {
-        fetch(window.config.testurl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "apllication/json"
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // setData(data.slip.advice);
-                console.log(data);
-            }).catch((data) => {
-                console.log(data);
-            });
-        // const auth = await getClientCredentials(window.config.scope);
+        // fetch(window.config.testurl, {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "apllication/json"
+        //     }
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         // setData(data.slip.advice);
+        //         console.log(data);
+        //     }).catch((data) => {
+        //         console.log(data);
+        //     });
+        // const auth = await getClientCredentials(window.configs.scope);
         // const accessToken = auth.access_token;
         // try {
-        //     const response = await axios.get(window.config.slotMachineAPI + "/credits/" + (await getBasicUserInfo()).email, {
+        //     const response = await axios.get(window.configs.slotMachineAPI + "/credits/" + (await getBasicUserInfo()).email, {
         //         headers: {
         //             'Authorization': `Bearer ${accessToken}`
         //         }

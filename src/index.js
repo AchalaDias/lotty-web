@@ -9,11 +9,11 @@ import { AuthProvider } from "@asgardeo/auth-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const config = {
-  clientID: window.config.clientID,
-  baseUrl: window.config.baseUrl,
-  signInRedirectURL: window.config.signInRedirectURL,
-  signOutRedirectURL: window.config.signOutRedirectURL,
-  scope: window.config.scope
+  clientID: window.configs.clientID,
+  baseUrl: window.configs.baseUrl,
+  signInRedirectURL: window.configs.signInRedirectURL,
+  signOutRedirectURL: window.configs.signOutRedirectURL,
+  scope: window.configs.scope
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

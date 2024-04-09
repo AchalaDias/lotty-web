@@ -112,7 +112,7 @@ export default function HomePage() {
     };
 
     // If `clientID` is not defined in `config.json`, show a UI warning.
-    if (!window.config.clientID) {
+    if (!window.configs.clientID) {
 
         return (
             <div className="content">
