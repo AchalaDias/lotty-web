@@ -1,0 +1,7 @@
+window.config = {
+    clientID: "",
+    baseUrl: "",
+    signInRedirectURL: "http://localhost:3000",
+    signOutRedirectURL: "http://localhost:3000",
+    scope: ["openid profile"]
+}

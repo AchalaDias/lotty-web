@@ -1,14 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './index.scss';
+import './App.scss';
+import "./lottery.scss";
+import HomePage from './pages/home';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from "@asgardeo/auth-react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+const config = {
+  clientID: window.config.clientID,
+  baseUrl: window.config.baseUrl,
+  signInRedirectURL: window.config.signInRedirectURL,
+  signOutRedirectURL: window.config.signOutRedirectURL,
+  scope: window.config.scope
+};
+console.log(config);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <AuthProvider config={config}>
+    <React.StrictMode>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </Router>
+    </React.StrictMode>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
