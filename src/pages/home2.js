@@ -18,11 +18,19 @@ export default function HomePage() {
     let [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const getAuthData = async () => {
-        await fetch('/auth/userinfo').
-            then((data) => {
+        await fetch('/auth/userinfo', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then((data) => {
                 setLoading(true);
+                console.log(data, data.email);
                 console.log(data.body, data.body.email);
-                if(data.body.email !== undefined){
+                if (data.email !== undefined) {
                     setLoading(false);
                     setIsAuthenticated(true);
                     return;
@@ -41,7 +49,7 @@ export default function HomePage() {
     useEffect(() => {
         getAuthData();
         console.log(isAuthenticated);
-        
+
     }, [isAuthenticated]);
 
     const handleLogin = useCallback(() => {
