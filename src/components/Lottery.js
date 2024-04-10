@@ -22,6 +22,8 @@ export const LotteryComponent = (props) => {
 
     const [myInterval, setMyInterval] = useState(10);
 
+    const [updatePage, setUpdatePage] = useState(false);
+
     const [num1, setNum1] = useState();
     const [num2, setNum2] = useState();
     const [num3, setNum3] = useState();
@@ -41,8 +43,8 @@ export const LotteryComponent = (props) => {
         setNum4(e.target.value);
     };
 
-    const submitNumbers = async (score) => {
-        if(!num1 || !num2 || !num3 || !num4) {
+    const submitNumbers = async () => {
+        if (!num1 || !num2 || !num3 || !num4) {
             alert('Number can not be null values');
             return;
         }
@@ -61,6 +63,25 @@ export const LotteryComponent = (props) => {
             .then(response => response.json())
             .then((data) => {
                 console.log(data);
+            }).catch((data) => {
+                console.log(data);
+            });
+    }
+
+    const getLotteryData = async () => {
+        await fetch(window.configs.apiUrlLottery + '/results/' + localStorage.getItem('email'), {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then((data) => {
+                if (data.enabled) {
+                    setNumDisable(data.enabled);
+                }
+                setUpdatePage(true);
             }).catch((data) => {
                 console.log(data);
             });
@@ -97,6 +118,14 @@ export const LotteryComponent = (props) => {
         return () => clearInterval(myInterval);
     }, [seconds, minutes, hours, days]);
 
+
+    useEffect(() => {
+        getLotteryData();
+    }, [updatePage]);
+
+    useEffect(() => {
+        getLotteryData();
+    }, []);
 
     return (
         <>
