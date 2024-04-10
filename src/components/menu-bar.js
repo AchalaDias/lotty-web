@@ -12,7 +12,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useAuthContext } from "@asgardeo/auth-react";
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 
 const pages = ['Slot Machine', 'Lottery', 'Results'];
@@ -25,11 +24,6 @@ export const ResponsiveAppBar = (props)  => {
         setMenuBarHandlerLottery,
         setMenuBarHandlerResults
     } = props;
-
-    // const {
-    //     state,
-    //     signOut
-    // } = useAuthContext();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -68,7 +62,7 @@ export const ResponsiveAppBar = (props)  => {
     };
 
     const handleCloseUserMenuLogOut = () => {
-        // signOut();
+        window.location.href = `/auth/logout?session_hint=${localStorage.getItem('session_hint')}`
     }
 
     return (
@@ -166,7 +160,7 @@ export const ResponsiveAppBar = (props)  => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                {/* <Avatar alt={state?.username} src="/static/images/avatar/2.jpg" /> */}
+                                <Avatar alt={localStorage.getItem('email')} src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu

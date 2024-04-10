@@ -1,7 +1,6 @@
-import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LOGIN_LOGO from "../images/login-lady.png";
 import { DefaultLayout } from "../layouts/default";
-import { useLocation } from "react-router-dom";
 import { ResponsiveAppBar } from "../components/menu-bar";
 import { SlotMachineComponent } from "../components/SlotMachine";
 import { ResultsComponent } from "../components/PriceResults";
@@ -11,33 +10,22 @@ import Cookies from 'js-cookie';
 
 export default function HomePage() {
 
-    const [derivedAuthenticationState, setDerivedAuthenticationState] = useState(null);
-    const [hasAuthenticationErrors, setHasAuthenticationErrors] = useState(false);
-    const [hasLogoutFailureError, setHasLogoutFailureError] = useState(false);
-
     const [menuBarHandlerSlotMachine, setMenuBarHandlerSlotMachine] = useState(true);
     const [menuBarHandlerLottery, setMenuBarHandlerLottery] = useState(false);
     const [menuBarHandlerResults, setMenuBarHandlerResults] = useState(false);
 
-    const search = useLocation().search;
-    const stateParam = new URLSearchParams(search).get('state');
-    const errorDescParam = new URLSearchParams(search).get('error_description');
-
     let [loading, setLoading] = useState(true);
     let [isAuthenticated, setIsAuthenticated] = useState(false);
-    let [color, setColor] = useState("#36d7b7");
 
     useEffect(() => {
         setLoading(true);
-        const token = Cookies.get('userinfo');
-        console.log(Cookies.get('session_hint'));
-        console.log(token);
-
         fetch('/auth/userinfo').
             then((data) => {
                 console.log(data);
                 setIsAuthenticated(true);
                 setLoading(false);
+                localStorage.setItem('email', data.email);
+                localStorage.setItem('session_hint', Cookies.get('session_hint'));
             }).catch((data) => {
                 console.log(data);
                 setIsAuthenticated(false);
@@ -49,10 +37,6 @@ export default function HomePage() {
     const handleLogin = useCallback(() => {
         window.location.href = "/auth/login";
     }, []);
-
-    const handleLogout = () => {
-        window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`
-    };
 
     const run = () => {
         console.log(window.configs.testurl);
@@ -70,8 +54,6 @@ export default function HomePage() {
             });
     };
 
-
-
     return (
         <DefaultLayout
             isLoading={loading}
@@ -82,32 +64,29 @@ export default function HomePage() {
                     ? (
 
                         <div>
-                            <ResponsiveAppBar 
-                            setMenuBarHandlerSlotMachine={setMenuBarHandlerSlotMachine}
-                            setMenuBarHandlerLottery={setMenuBarHandlerLottery}
-                            setMenuBarHandlerResults={setMenuBarHandlerResults}
+                            <ResponsiveAppBar
+                                setMenuBarHandlerSlotMachine={setMenuBarHandlerSlotMachine}
+                                setMenuBarHandlerLottery={setMenuBarHandlerLottery}
+                                setMenuBarHandlerResults={setMenuBarHandlerResults}
                             />
                             {
                                 menuBarHandlerSlotMachine ?
                                     <div className="content">
-                                        <SlotMachineComponent
-                                        />
+                                        <SlotMachineComponent />
                                     </div>
                                     : null
                             }
                             {
                                 menuBarHandlerLottery ?
                                     <div className="content">
-                                        <LotteryComponent
-                                        />
+                                        <LotteryComponent />
                                     </div>
                                     : null
                             }
                             {
                                 menuBarHandlerResults ?
                                     <div className="content">
-                                       <ResultsComponent
-                                        />
+                                        <ResultsComponent />
                                     </div>
                                     : null
                             }
