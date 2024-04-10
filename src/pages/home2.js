@@ -21,11 +21,8 @@ export default function HomePage() {
         await fetch('/auth/userinfo').
             then((data) => {
                 setLoading(true);
-                console.log(data, data['email']);
-                const dd = JSON.parse(data);
-
-                console.log(dd.email, dd['email']);
-                if(data.email !== undefined){
+                console.log(data.body, data.body.email);
+                if(data.body.email !== undefined){
                     setLoading(false);
                     setIsAuthenticated(true);
                     return;
