@@ -69,13 +69,14 @@ export default function HomePage() {
     };
 
     const run = () => {
-        fetch(window.config.testurl, {
+        console.log(window.configs.testurl);
+        fetch(window.configs.testurl, {
             method: "GET",
             headers: {
                 "Content-Type": "apllication/json"
             }
         })
-            .then((response) => response.json())
+            .then((response) => console.log(response))
             .then((data) => {
                 console.log(data);
             }).catch((data) => {
@@ -109,14 +110,6 @@ export default function HomePage() {
                     >
                         Login
                     </button>
-                    <button
-                        className="btn primary"
-                        onClick={() => {
-                            run();
-                        }}
-                    >
-                        RUN
-                    </button>
                     <h4 className={"spa-app-description"}>
                         <a href="https://wso2.com/asgardeo/docs/guides/#developer-guide" rel="noreferrer noopener">
                             Asgardeo Auth
@@ -124,6 +117,14 @@ export default function HomePage() {
                     </h4>
                 </div>
                 <img src={FOOTER_LOGOS} className="footer-image" />
+                <button
+                    className="btn primary"
+                    onClick={() => {
+                        run();
+                    }}
+                >
+                    RUN
+                </button>
             </div>
 
 
