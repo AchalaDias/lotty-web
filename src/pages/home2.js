@@ -28,6 +28,7 @@ export default function HomePage() {
             .then(response => response)
             .then((data) => {
                 setLoading(true);
+                console.log(Date.now(), data.exp * 1000 , "Date compare");
                 if (Date.now() >= data.exp * 1000) {
                     window.location.href = `/auth/logout?session_hint=${localStorage.getItem('session_hint')}`;
                     return;
