@@ -37,8 +37,15 @@ const SlotMachine = () => {
     }
 
     useEffect(() => {
-        getData();
+        setTimeout(
+            () => getData(),
+            3000
+        );
     }, [stopSpinningHandler]);
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     return (
         <div className={styleClasses['slot-machine']}>

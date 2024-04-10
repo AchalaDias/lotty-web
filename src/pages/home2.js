@@ -28,7 +28,6 @@ export default function HomePage() {
             .then(response => response.json())
             .then((data) => {
                 setLoading(true);
-                console.log(data, data.email);
                 if (data.email !== undefined) {
                     setLoading(false);
                     setIsAuthenticated(true);
@@ -46,29 +45,11 @@ export default function HomePage() {
 
     useEffect(() => {
         getAuthData();
-        console.log(isAuthenticated);
-
     }, [isAuthenticated]);
 
     const handleLogin = useCallback(() => {
         window.location.href = "/auth/login";
     }, []);
-
-    const run = () => {
-        console.log(window.configs.testurl);
-        fetch(window.configs.testurl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "apllication/json"
-            }
-        })
-            .then((response) => console.log(response))
-            .then((data) => {
-                console.log(data);
-            }).catch((data) => {
-                console.log(data);
-            });
-    };
 
     return (
         <DefaultLayout
