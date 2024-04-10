@@ -20,7 +20,10 @@ export default function HomePage() {
     const getAuthData = async () => {
         await fetch('/auth/userinfo').
             then((data) => {
-                if(data.email){
+                setLoading(true);
+                console.log(data.email);
+                if(data.email !== undefined){
+                    setLoading(false);
                     setIsAuthenticated(true);
                     return;
                 }
@@ -36,7 +39,6 @@ export default function HomePage() {
     }
 
     useEffect(() => {
-        setLoading(true);
         getAuthData();
         console.log(isAuthenticated);
         
