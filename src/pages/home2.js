@@ -32,7 +32,7 @@ export default function HomePage() {
                 setLoading(false);
                 alert("Login Failed !!");
             });
-    }, []);
+    }, [isAuthenticated]);
 
     const handleLogin = useCallback(() => {
         window.location.href = "/auth/login";
