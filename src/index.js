@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import './App.scss';
 import "./lottery.scss";
-import HomePage from './pages/home';
+import HomePage from './pages/home2';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "@asgardeo/auth-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,7 +18,7 @@ const config = {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <AuthProvider config={config}>
+  // <AuthProvider config={config}>
     <React.StrictMode>
       <Router>
         <Routes>
@@ -26,7 +26,7 @@ root.render(
         </Routes>
       </Router>
     </React.StrictMode>
-  </AuthProvider>
+  // </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
