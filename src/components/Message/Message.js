@@ -72,8 +72,8 @@ const Message = ({ score }) => {
         message = winnerMessages[score];
     } else {
         message = loserMessages[Math.floor(Math.random() * loserMessages.length)] + ' ';
-        updateData(score);
     }
+    updateData(score);
     return <p className={styleClasses['message']}>{message}</p>;
 };
 
