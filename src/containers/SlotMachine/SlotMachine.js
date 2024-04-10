@@ -27,6 +27,11 @@ const SlotMachine = () => {
                 "Content-Type": "apllication/json"
             }
         })
+            .then((response) => {
+                if (response.status == 401) {
+                    window.location.href = "/auth/login";
+                }
+            })
             .then((response) => response.json())
             .then((data) => {
                 setCredits(data.amount)

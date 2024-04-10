@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styleClasses from '../containers/SlotMachine/SlotMachine.module.scss';
 import Moment from 'moment';
 import Box from '@mui/material/Box';
@@ -78,8 +78,15 @@ export const LotteryComponent = (props) => {
         })
             .then(response => response.json())
             .then((data) => {
-                if (data.enabled) {
-                    setNumDisable(data.enabled);
+                setNumDisable(!data.enabled);
+                if (data.enabled == false) {
+                    const numberArray = data.value.split(':');
+                    if (numberArray.length === 4) {
+                        setNum1(numberArray[0]);
+                        setNum2(numberArray[1]);
+                        setNum3(numberArray[2]);
+                        setNum4(numberArray[3]);
+                    }
                 }
                 setUpdatePage(true);
             }).catch((data) => {

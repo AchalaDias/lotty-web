@@ -25,7 +25,7 @@ export default function HomePage() {
                 'Content-Type': 'application/json',
             }
         })
-            .then(response => response.json())
+            .then(response => response)
             .then((data) => {
                 setLoading(true);
                 if (data.email !== undefined) {
