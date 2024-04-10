@@ -12,9 +12,6 @@ import DoneIcon from '@mui/icons-material/Done';
 
 export const LotteryComponent = (props) => {
 
-    const {
-        derivedResponse
-    } = props;
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
     const currentMin = currentTime.getMinutes();

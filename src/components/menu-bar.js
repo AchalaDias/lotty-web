@@ -26,10 +26,10 @@ export const ResponsiveAppBar = (props)  => {
         setMenuBarHandlerResults
     } = props;
 
-    const {
-        state,
-        signOut
-    } = useAuthContext();
+    // const {
+    //     state,
+    //     signOut
+    // } = useAuthContext();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -68,7 +68,7 @@ export const ResponsiveAppBar = (props)  => {
     };
 
     const handleCloseUserMenuLogOut = () => {
-        signOut();
+        // signOut();
     }
 
     return (
@@ -166,7 +166,7 @@ export const ResponsiveAppBar = (props)  => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt={state?.username} src="/static/images/avatar/2.jpg" />
+                                {/* <Avatar alt={state?.username} src="/static/images/avatar/2.jpg" /> */}
                             </IconButton>
                         </Tooltip>
                         <Menu

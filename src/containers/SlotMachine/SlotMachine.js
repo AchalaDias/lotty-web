@@ -21,10 +21,10 @@ const getClientCredentials = oauth.clientCredentials(
 
 const SlotMachine = () => {
 
-    const {
-        state,
-        getBasicUserInfo,
-    } = useAuthContext();
+    // const {
+    //     state,
+    //     getBasicUserInfo,
+    // } = useAuthContext();
 
     const { innerWidth: width, innerHeight: height } = window;
     const { wheels, startSpinningHandler, stopSpinningHandler } = useSlotMachine();

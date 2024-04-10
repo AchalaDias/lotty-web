@@ -1,35 +1,13 @@
-/**
- * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
- *
- * WSO2 Inc. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
-// import { default as authConfig } from "../../public/config.json";
 import LOGIN_LOGO from "../images/login-lady.png";
 import { DefaultLayout } from "../layouts/default";
 import { useLocation } from "react-router-dom";
-// import { LogoutRequestDenied } from "../components/LogoutRequestDenied";
-// import { USER_DENIED_LOGOUT } from "../constants/errors";
 import { ResponsiveAppBar } from "../components/menu-bar";
 import { SlotMachineComponent } from "../components/SlotMachine";
 import { ResultsComponent } from "../components/PriceResults";
 import { LotteryComponent } from "../components/Lottery";
 import FOOTER_LOGOS from "../images/footer.png";
 import Cookies from 'js-cookie';
-
 
 export default function HomePage() {
 
@@ -45,24 +23,32 @@ export default function HomePage() {
     const stateParam = new URLSearchParams(search).get('state');
     const errorDescParam = new URLSearchParams(search).get('error_description');
 
+    let [loading, setLoading] = useState(true);
+    let [isAuthenticated, setIsAuthenticated] = useState(false);
+    let [color, setColor] = useState("#36d7b7");
+
     useEffect(() => {
+        setLoading(true);
+        const token = Cookies.get('userinfo');
+        console.log(Cookies.get('session_hint'));
+        console.log(token);
 
-        // Read userinfo cookie value.
-        const encodedUserInfo = Cookies.get('userinfo')
-
-        // // Decode the value. 
-        // const userInfo = JSON.parse(atob(encodedUserInfo));
-        console.log(encodedUserInfo);
-
-
+        fetch('/auth/userinfo').
+            then((data) => {
+                console.log(data);
+                setIsAuthenticated(true);
+                setLoading(false);
+            }).catch((data) => {
+                console.log(data);
+                setIsAuthenticated(false);
+                setLoading(false);
+                alert("Login Failed !!");
+            });
     }, []);
-
-
 
     const handleLogin = useCallback(() => {
         window.location.href = "/auth/login";
     }, []);
-
 
     const handleLogout = () => {
         window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`
@@ -88,46 +74,77 @@ export default function HomePage() {
 
     return (
         <DefaultLayout
-            isLoading={false}
+            isLoading={loading}
             hasErrors={false}
         >
-            <div className="container0">
-                <div className="header-title">
-                    <h1>
-                        <strong>Lotty</strong>
-                    </h1>
-                </div>
+            {
+                !isAuthenticated
+                    ? (
 
-                <div className="content0">
-                    <div className="home-image0">
-                        <img alt="react-logo" src={LOGIN_LOGO} className="react-logo-image logo0" />
-                    </div>
-                    <button
-                        className="btn primary"
-                        onClick={() => {
-                            handleLogin();
-                        }}
-                    >
-                        Login
-                    </button>
-                    <h4 className={"spa-app-description"}>
-                        <a href="https://wso2.com/asgardeo/docs/guides/#developer-guide" rel="noreferrer noopener">
-                            Asgardeo Auth
-                        </a>
-                    </h4>
-                </div>
-                <img src={FOOTER_LOGOS} className="footer-image" />
-                <button
-                    className="btn primary"
-                    onClick={() => {
-                        run();
-                    }}
-                >
-                    RUN
-                </button>
-            </div>
+                        <div>
+                            <ResponsiveAppBar 
+                            setMenuBarHandlerSlotMachine={setMenuBarHandlerSlotMachine}
+                            setMenuBarHandlerLottery={setMenuBarHandlerLottery}
+                            setMenuBarHandlerResults={setMenuBarHandlerResults}
+                            />
+                            {
+                                menuBarHandlerSlotMachine ?
+                                    <div className="content">
+                                        <SlotMachineComponent
+                                        />
+                                    </div>
+                                    : null
+                            }
+                            {
+                                menuBarHandlerLottery ?
+                                    <div className="content">
+                                        <LotteryComponent
+                                        />
+                                    </div>
+                                    : null
+                            }
+                            {
+                                menuBarHandlerResults ?
+                                    <div className="content">
+                                       <ResultsComponent
+                                        />
+                                    </div>
+                                    : null
+                            }
 
+                        </div>
+                    )
+                    : (
 
+                        <div className="container0">
+                            <div className="header-title">
+                                <h1>
+                                    <strong>Lotty</strong>
+                                </h1>
+                            </div>
+
+                            <div className="content0">
+                                <div className="home-image0">
+                                    <img alt="react-logo" src={LOGIN_LOGO} className="react-logo-image logo0" />
+                                </div>
+                                <button
+                                    className="btn primary"
+                                    onClick={() => {
+                                        handleLogin();
+                                    }}
+                                >
+                                    Login
+                                </button>
+                                <h4 className={"spa-app-description"}>
+                                    <a href="https://wso2.com/asgardeo/docs/guides/#developer-guide" rel="noreferrer noopener">
+                                        Asgardeo Auth
+                                    </a>
+                                </h4>
+                            </div>
+                            <img src={FOOTER_LOGOS} className="footer-image" />
+                        </div>
+                    )
+            }
         </DefaultLayout>
     );
 };

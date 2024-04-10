@@ -7,10 +7,6 @@ import '../lib/styles/main.scss';
 
 export const SlotMachineComponent = (props) => {
 
-    const {
-        derivedResponse
-    } = props;
-
     return (
         <>
             <h2 style={{ marginTop: 60 }}></h2>

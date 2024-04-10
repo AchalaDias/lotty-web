@@ -129,10 +129,6 @@ const bull = (
 
 export const ResultsComponent = (props) => {
 
-    const {
-        derivedResponse
-    } = props;
-
     const [tickPlacement, setTickPlacement] = useState ('middle');
     const [tickLabelPlacement, setTickLabelPlacement] = useState('middle');
 
