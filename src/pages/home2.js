@@ -28,6 +28,10 @@ export default function HomePage() {
             .then(response => response)
             .then((data) => {
                 setLoading(true);
+                if (Date.now() >= data.exp * 1000) {
+                    window.location.href = `/auth/logout?session_hint=${localStorage.getItem('session_hint')}`;
+                    return;
+                }
                 if (data.email !== undefined) {
                     setLoading(false);
                     setIsAuthenticated(true);
