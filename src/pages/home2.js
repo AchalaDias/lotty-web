@@ -25,7 +25,7 @@ export default function HomePage() {
                 'Content-Type': 'application/json',
             }
         })
-            .then(response => response)
+            .then(response => response.json())
             .then((data) => {
                 setLoading(true);
                 console.log(Date.now(), data.exp * 1000 , "Date compare");
