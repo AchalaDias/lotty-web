@@ -54,6 +54,7 @@ export default function HomePage() {
         // const userInfo = JSON.parse(atob(encodedUserInfo));
         console.log(encodedUserInfo);
 
+
     }, []);
 
 
@@ -65,6 +66,21 @@ export default function HomePage() {
 
     const handleLogout = () => {
         window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`
+    };
+
+    const run = () => {
+        fetch(window.config.testurl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "apllication/json"
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            }).catch((data) => {
+                console.log(data);
+            });
     };
 
 
@@ -92,6 +108,14 @@ export default function HomePage() {
                         }}
                     >
                         Login
+                    </button>
+                    <button
+                        className="btn primary"
+                        onClick={() => {
+                            run();
+                        }}
+                    >
+                        RUN
                     </button>
                     <h4 className={"spa-app-description"}>
                         <a href="https://wso2.com/asgardeo/docs/guides/#developer-guide" rel="noreferrer noopener">
