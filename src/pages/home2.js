@@ -37,6 +37,9 @@ export default function HomePage() {
                 setLoading(false);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('session_hint', Cookies.get('session_hint'));
+
+                console.log("storage data  ", localStorage.getItem('email'),
+                    localStorage.getItem('session_hint'));
             }).catch((data) => {
                 console.log(data);
                 setIsAuthenticated(false);
