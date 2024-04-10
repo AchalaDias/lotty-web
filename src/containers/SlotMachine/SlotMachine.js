@@ -39,7 +39,7 @@ const SlotMachine = () => {
     useEffect(() => {
         setTimeout(
             () => getData(),
-            3000
+            2000
         );
     }, [stopSpinningHandler]);
 

@@ -47,7 +47,7 @@ const updateData = async (score) => {
 
     const formattedToday = yyyy + "-" + mm + '-' + dd;
 
-    await fetch('/credits/' + localStorage.getItem('email'), {
+    await fetch(window.configs.apiUrl + '/credits/' + localStorage.getItem('email'), {
         method: 'PUT',
         headers: {
             Accept: 'application/json',

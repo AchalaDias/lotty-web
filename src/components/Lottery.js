@@ -1,6 +1,4 @@
-import { BasicUserInfo } from "@asgardeo/auth-react";
-import React, { FunctionComponent, ReactElement, useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import styleClasses from '../containers/SlotMachine/SlotMachine.module.scss';
 import Moment from 'moment';
 import Box from '@mui/material/Box';
@@ -30,10 +28,6 @@ export const LotteryComponent = (props) => {
     const [num4, setNum4] = useState();
     const [numDisable, setNumDisable] = useState(false);
 
-    const submitNumbers = () => {
-        console.log(num1, num2, num3, num4);
-    }
-
     const handleChangeNum1 = e => {
         setNum1(e.target.value);
     };
@@ -46,6 +40,31 @@ export const LotteryComponent = (props) => {
     const handleChangeNum4 = e => {
         setNum4(e.target.value);
     };
+
+    const submitNumbers = async (score) => {
+        if(!num1 || !num2 || !num3 || !num4) {
+            alert('Number can not be null values');
+            return;
+        }
+        const lotteryBetvalue = `${num1}:${num2}:${num3}:${num4}`;
+        await fetch(window.configs.apiUrlLottery + '/bet', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                value: lotteryBetvalue,
+                email: localStorage.getItem('email')
+            })
+        })
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+            }).catch((data) => {
+                console.log(data);
+            });
+    }
 
     useEffect(() => {
         setMyInterval(setInterval(() => {
