@@ -17,12 +17,13 @@ export default function HomePage() {
     let [loading, setLoading] = useState(true);
     let [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
-        fetch('/auth/userinfo').
+    const getAuthData = async () => {
+        await fetch('/auth/userinfo').
             then((data) => {
-                console.log(data);
-                setIsAuthenticated(true);
+                if(data.email){
+                    setIsAuthenticated(true);
+                    return;
+                }
                 setLoading(false);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('session_hint', Cookies.get('session_hint'));
@@ -32,6 +33,13 @@ export default function HomePage() {
                 setLoading(false);
                 alert("Login Failed !!");
             });
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        getAuthData();
+        console.log(isAuthenticated);
+        
     }, [isAuthenticated]);
 
     const handleLogin = useCallback(() => {
@@ -60,7 +68,7 @@ export default function HomePage() {
             hasErrors={false}
         >
             {
-                !isAuthenticated
+                isAuthenticated == true
                     ? (
 
                         <div>
