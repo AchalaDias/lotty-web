@@ -29,7 +29,6 @@ export default function HomePage() {
             .then((data) => {
                 setLoading(true);
                 console.log(data, data.email);
-                console.log(data.body, data.body.email);
                 if (data.email !== undefined) {
                     setLoading(false);
                     setIsAuthenticated(true);
