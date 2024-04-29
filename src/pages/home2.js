@@ -44,7 +44,6 @@ export default function HomePage() {
                 console.log(data);
                 setIsAuthenticated(false);
                 setLoading(false);
-                alert("Login Failed !!");
             });
     }
 
