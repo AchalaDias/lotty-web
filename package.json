@@ -2,6 +2,7 @@
   "name": "lotty-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@asgardeo/auth-react": "^4.0.3",
     "@emotion/react": "^11.11.4",
