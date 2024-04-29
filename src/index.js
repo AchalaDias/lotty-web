@@ -8,13 +8,13 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "@asgardeo/auth-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-const config = {
-  clientID: window.configs.clientID,
-  baseUrl: window.configs.baseUrl,
-  signInRedirectURL: window.configs.signInRedirectURL,
-  signOutRedirectURL: window.configs.signOutRedirectURL,
-  scope: window.configs.scope
-};
+// const config = {
+//   clientID: window.configs.clientID,
+//   baseUrl: window.configs.baseUrl,
+//   signInRedirectURL: window.configs.signInRedirectURL,
+//   signOutRedirectURL: window.configs.signOutRedirectURL,
+//   scope: window.configs.scope
+// };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
