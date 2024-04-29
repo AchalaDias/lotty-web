@@ -9,7 +9,7 @@ import { AuthProvider } from "@asgardeo/auth-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const config = {
-  clientID: window.configs.clientID,
+  clientID: window.public.configs.clientID,
   baseUrl: window.configs.baseUrl,
   signInRedirectURL: window.configs.signInRedirectURL,
   signOutRedirectURL: window.configs.signOutRedirectURL,
